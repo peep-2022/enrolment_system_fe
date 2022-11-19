@@ -1,22 +1,18 @@
 import { useState } from 'react';
 import './App.css';
 import Course from './components/Course';
+import 'bootstrap/dist/css/bootstrap.css';
 
 function App() {
   let userName = "yj" //관리자 이름
   let [course, setCourse] = useState([]); //수업 목록
   return (
     <div className="App">
-      <head>
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" 
-      crossorigin="anonymous"/>
-      </head>
       <div className="adminInfo">
         <span>{userName}</span>님 <button>로그아웃</button>
       </div>
       <div className='courseList'>
-        <table className='courseTable'>
+        <table className='courseTable' class="table table-bordered table-hover">
           <thead>
             <th></th>
             <th>과목명</th>

@@ -1,17 +1,7 @@
-.courseTable th, td{
-  border: 1px solid black;
-  padding: 5px;
-  text-align: center;
-}
-
 .adminInfo{
   text-align: right;
   margin-right: 20px;
   padding: 10px;
 }
 
-.courseTable{
-  border-collapse: collapse;
-  margin: 20px auto;
-}
 
