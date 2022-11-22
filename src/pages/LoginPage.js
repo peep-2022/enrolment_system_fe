@@ -1,14 +1,44 @@
 import React from 'react';
+import axios from 'axios';
 import '../css/LoginContainer.css';
 import Header from "../components/Header";
 
 const Login = () => {
+    let userId = document.getElementsByClassName('id')[0].value;
+    let userPW = document.getElementsByClassName('pw')[0].value;
+
     function loginClick(){
-        window.location.replace("/CourseEnroll")
+        axios({
+            method: 'GET',
+            url: `http://127.0.0.1:8000/login?isStudent=true&userId=${userId}&userPW=${userPW}`
+        }).then(response => {
+            console.log(response.isSuccess)
+            if (response.isSuccess == 'true'){
+                sessionStorage.setItem('id', userId);
+                window.location.replace("/CourseEnroll");
+            }
+            else{
+    
+            }
+        })
+
     }
     function adminLoginClick(){
-        window.location.replace("/Admin")
+        axios({
+            method: 'GET',
+            url: `http://127.0.0.1:8000/login?isStudent=false&userId=${userId}&userPW=${userPW}`
+        }).then(response => {
+            console.log(response.isSuccess)
+            if (response.isSuccess == 'true'){
+                sessionStorage.setItem('id', userId);
+                window.location.replace("/Admin")
+            }
+            else{
+    
+            }
+        })
     }
+
     return(
         <div>
             <div><Header /></div>
