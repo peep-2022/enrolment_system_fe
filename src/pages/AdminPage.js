@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Header from '../components/Header';
-import SearchCourseList from '../components/SearchCourseList';
+import AdminCourseList from '../components/AdminCourseList';
 
 const Admin = () => {
     return(
@@ -10,13 +10,17 @@ const Admin = () => {
                 <Header/>
             </div>
             <div className='Mains'>
-                <div>
-                    <h2> 수강 신청</h2>
-                    <SearchCourseList/>
+                <div id='Mains-left'>
+                    <h3> Menu </h3>
+                    <button>로그아웃</button>
+                </div>
+                <div id='Mains-right'>
+                    <h2> 강의 관리 </h2>
+                    <AdminCourseList/>
                 </div>
             </div>
         </div>
-    );
+    ); 
 };
 
   
