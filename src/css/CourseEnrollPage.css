@@ -1,0 +1,12 @@
+.Mains{
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+.enrolment{
+    display: grid;
+    grid-template-rows: 20% 20% 60%;
+}
+
+#Mains-left { border-right: solid 1px #aabbaa; }
+#Mains-right { border-left: solid 1px #aabbaa; }

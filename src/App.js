@@ -1,17 +1,17 @@
-import "./App.css";
 import React from 'react';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
+import "./App.css";
 
-import CourseApplyList from './pages/CourseApplyListPage';
-import Main from './pages/Main';
+import CourseEnroll from './pages/CourseEnrollPage';
+import CourseEnrollList from './pages/CourseEnrollListPage';
 
 function App() {
     return (
         <BrowserRouter>
             <div className="App">
                 <Routes>
-                    <Route path="/" element={<Main />} />
-                    <Route path="/CourseApplyList" element={<CourseApplyList />} />
+                    <Route path="/" element={<CourseEnroll/>} />
+                    <Route path="/CourseEnrollList" element={<CourseEnrollList/>} />
                 </Routes>
             </div>
         </BrowserRouter>

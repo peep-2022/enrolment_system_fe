@@ -2,22 +2,24 @@ import '../css/CourseList.css'
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
-function CourseList({courselist}) {
+function AppliedCourseList() {
 
-  const [ApplyCourseList, setApplyCourseList] = useState([]);
+  const [appliedCourseList, setAppliedCourseList] = useState([]);
+  
+  //TODO: 현재 로그인한 사용자의 학번으로 바꾸기
   const userid = '201902671'
 
   useEffect(() => {
       axios({
           method: 'GET',
           url: `http://127.0.0.1:8000/showEnrolmentList?studentNumber=${userid}`
-      }).then(response => setApplyCourseList(response.data))
+      }).then(response => setAppliedCourseList(response.data))
   }, [])
 
   const onRemove = id => {
     if(window.confirm('삭제 하시겠습니까?')) {
-      setApplyCourseList(ApplyCourseList => 
-        ApplyCourseList.filter(ApplyCourseList => ApplyCourseList.courseNumber !== id))
+      setAppliedCourseList(appliedCourseList => 
+        appliedCourseList.filter(appliedCourseList => appliedCourseList.courseNumber !== id))
       axios({
           method: 'DELETE',
           url: `http://127.0.0.1:8000/dropClass?studentNumber=${userid}&courseNumber=${id}`
@@ -43,18 +45,18 @@ function CourseList({courselist}) {
                 </tr>
             </thead>
             <tbody>
-              {ApplyCourseList.map(ApplyCourseList => (
+              {appliedCourseList.map(appliedCourseList => (
                 <tr>
                   <td></td>
-                  <td>{ApplyCourseList.majorName}</td>
-                  <td>{ApplyCourseList.grade}</td>
-                  <td>{ApplyCourseList.courseNumber}</td>
-                  <td>{ApplyCourseList.subjectName}</td>
-                  <td>{ApplyCourseList.professorName}</td>
-                  <td>{ApplyCourseList.credit}</td>
-                  <td>{ApplyCourseList.limitNumber}</td>
-                  <td>{ApplyCourseList.currentNumber}</td>
-                  <td><button onClick={() => onRemove(ApplyCourseList.courseNumber)}>삭제</button></td>
+                  <td>{appliedCourseList.majorName}</td>
+                  <td>{appliedCourseList.grade}</td>
+                  <td>{appliedCourseList.courseNumber}</td>
+                  <td>{appliedCourseList.subjectName}</td>
+                  <td>{appliedCourseList.professorName}</td>
+                  <td>{appliedCourseList.credit}</td>
+                  <td>{appliedCourseList.limitNumber}</td>
+                  <td>{appliedCourseList.currentNumber}</td>
+                  <td><button onClick={() => onRemove(appliedCourseList.courseNumber)}>삭제</button></td>
                 </tr>
               ))}
             </tbody>
@@ -63,4 +65,4 @@ function CourseList({courselist}) {
   );
 }
 
-export default CourseList;
+export default  AppliedCourseList;
