@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import '../css/Modal.css'
 
@@ -26,14 +27,16 @@ function Modal(props){
         }
         if(limitNumber === ''){
             limitNumber = props.limitNumber;
+        }if(newCourseNum === '--') {
+            newCourseNum = oldCourseNum;
         }
-
-        alert(`해당 과목의 정보를 학과명 : ${majorName}, 학년별: ${grade}, 교수명: ${professorName}, 과목명: ${subjectName}, 학수 번호: ${subjectNumberA}-${subjectNumberB}-${classNumber}로 변경하시겠습니까?`);
         
-        // axios({
-        //     method: 'GET',
-        //     url: `http://127.0.0.1:8000/editclass?oldCourseNum=${oldCourseNum}&newCourseNum=${newCourseNum}&subjectName=${subjectName}&limitNumber=${limitNumber}&grade=${grade}&credit=${credit}&professorName=${professorName}&majorName=${majorName}`
-        // }).then((response) => {setSearchCourseList(response.data)});
+        alert(`해당 과목의 정보를 학과명 : ${majorName}, 학년별: ${grade}, 교수명: ${professorName}, 과목명: ${subjectName}, 이수학점:${credit}, 제한인원:${limitNumber}으로 변경하시겠습니까? ${oldCourseNum}, ${newCourseNum}`);
+        
+        axios({
+            method: 'GET',
+            url: `http://127.0.0.1:8000/adminUpdate?oldCourseNum=${oldCourseNum}&newCourseNum=${newCourseNum}&subjectName=${subjectName}&limitNumber=${limitNumber}&grade=${grade}&credit=${credit}&professorName=${professorName}&majorName=${majorName}`
+        }).then((response) => {console.log(response.data)});
     
     }
 
@@ -117,10 +120,10 @@ function Modal(props){
                 <input type="text" placeholder={props.subjectName} value={subjectName} onChange={handleChangeSN}></input>
             </label>
             <br />
-            <label name='limitNumber'>학점
+            <label name='limitNumber'>제한인원
                 <input type="number" placeholder={props.limitNumber} value={limitNumber} onChange={handleChangeLN} />
             </label>
-            <label>제한 인원
+            <label>학점     
                 <input type="number" placeholder={props.credit} value={credit} onChange={handleChangeCr}></input>
             </label>
             <br />
