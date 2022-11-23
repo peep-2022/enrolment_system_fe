@@ -23,20 +23,40 @@ function SearchCourseList(searchCourseList) {
           <td>{searchlist[i]['credit']}</td>
           <td>{searchlist[i]['limitNumber']}</td>
           <td>{searchlist[i]['currentNumber']}</td>
-          <td><button onClick={requestEnrolmentAPI}>신청</button></td>
+          <td><button onClick={() => {
+            var userid = sessionStorage.getItem('id')
+            var cNumer = searchlist[i]['courseNumber'];
+            axios({
+              method: 'GET',
+              url: `http://127.0.0.1:8000/enrolment?studentNumber=${userid}&courseNumber=${cNumer}`
+            }).then((response) => {
+              var returnCode = response.data.returnCode;
+              console.log(returnCode);
+              var message = "";
+              if(returnCode === "Success") {
+                message = "수강 신청 성공했습니다!";
+              }else if(returnCode === "AlreadyAppliedError"){
+                message = "이미 수강신청한 과목입니다.";
+              }else if(returnCode === "TimeError"){
+                message = "수강 신청 가능 시간이 지났습니다.";
+              }else if(returnCode === "AlreadyAppliedSubjectError"){
+                message = "다른 분반 신청했습니다..";
+              }else if(returnCode === "AlreadyAppliedError"){
+                message = "이미 수강신청한 과목입니다.";
+              }else if(returnCode === "OvercreditError"){
+                message = "수강 가능 학점 초과입니다.";
+              }else if(returnCode === "OverlimitError"){
+                message = "정원 초과입니다.";
+              }
+              alert(`${message}`);
+            })
+
+          }}>신청</button></td>
         </tr>
         );
       } 
     }
     return reList;
-  }
-
-  function requestEnrolmentAPI(){
-    axios({
-      method: 'GET',
-      url: `http://127.0.0.1:8000/enrolment?studentNumber=${majorName}&grade=${grade}&professorName=${professorName}&subjectName=${subjectName}&courseNumber=${courseNumber}`
-    }).then((response) => {
-    })
   }
 
   return (

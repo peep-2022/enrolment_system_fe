@@ -15,7 +15,8 @@ const CourseEnroll = () => {
     //사용자 입력 변수 
     var [professorName, setProfessorName] = useState("");
     var [subjectName, setSubjectName] = useState("");
-    var [subjectNumber, setSubjectNumber] = useState("");
+    var [subjectNumberA, setSubjectNumberA] = useState("");
+    var [subjectNumberB, setSubjectNumberB] = useState("");
     var [classNumber, setClassNumber] = useState("");
     var [majorName, setMajorName] = useState("");
     var [grade, setGrade] = useState("");
@@ -24,30 +25,28 @@ const CourseEnroll = () => {
     const handleChangePN = (event) => {
         setProfessorName(event.target.value);
     };
-
     const handleChangeSN = (event) => {
         setSubjectName(event.target.value);
     };
-
-    const handleChangeSNu = (event) => {
-        setSubjectNumber(event.target.value);
+    const handleChangeSNuA = (event) => {
+        setSubjectNumberA(event.target.value);
     };
-
+    const handleChangeSNuB = (event) => {
+        setSubjectNumberB(event.target.value);
+    };
     const handleChangeCN = (event) => {
         setClassNumber(event.target.value);
     };
-
     const handleChangeMN = (event) => {
         setMajorName(event.target.value);
     };
-
     const handleChangeG = (event) => {
         setGrade(event.target.value);
     };
 
 
     function getData ()   {
-        var courseNumber = `${subjectNumber}-${classNumber}`;
+        var courseNumber = `${subjectNumberA}-${subjectNumberB}-${classNumber}`;
 
         if(majorName === "") {
             majorName = "대학 학과공통";
@@ -75,9 +74,8 @@ const CourseEnroll = () => {
 
     }
 
-    
     useEffect(() => {
-        var courseNumber = `${subjectNumber}-${classNumber}`;
+        var courseNumber = `${subjectNumberA}-${subjectNumberB}-${classNumber}`;
 
         if(majorName === "") {
             majorName = "대학 학과공통";
@@ -91,7 +89,7 @@ const CourseEnroll = () => {
         if(subjectName === "") {
             subjectName = "None";
         }
-        if(courseNumber === "-") {
+        if(courseNumber === "--") {
             courseNumber="None";
         }
 
@@ -152,7 +150,7 @@ const CourseEnroll = () => {
                                     </div>
                                     <div className='Padding'>
                                         <label>학수 번호
-                                            <input type="number" value={subjectNumber} onChange={handleChangeSNu} /> - <input type="number" value={classNumber} onChange={handleChangeCN} />
+                                            <input type="number" value={subjectNumberA} onChange={handleChangeSNuA} /> -  <input type="number" value={subjectNumberB} onChange={handleChangeSNuB} /> - <input type="number" value={classNumber} onChange={handleChangeCN} />
                                         </label>
                                     </div>
                                 </div>
@@ -164,9 +162,34 @@ const CourseEnroll = () => {
                         <form>
                             <div className='Padding'>
                                 <label>학수 번호
-                                    <input type="text" /> - <input type="text" />
+                                    <input type="number" value={subjectNumberA} onChange={handleChangeSNuA} /> -  <input type="number" value={subjectNumberB} onChange={handleChangeSNuB} /> - <input type="number" value={classNumber} onChange={handleChangeCN} />
                                 </label>
-                                <button>신청</button>
+                                <button onClick={() => {
+                                    var userid = sessionStorage.getItem('id')
+                                    var courseNumber = `${subjectNumberA}-${subjectNumberB}-${classNumber}`;
+                                    
+                                    axios({
+                                    method: 'GET',
+                                    url: `http://127.0.0.1:8000/enrolment?studentNumber=${userid}&courseNumber=${courseNumber}`
+                                    }).then((response) => {
+                                    var returnCode = response.data.returnCode;
+                                    console.log(returnCode);
+                                    var message = "";
+                                    if(returnCode === "Success") {
+                                        message = "수강 신청 성공했습니다!";
+                                    }else if(returnCode === "AlreadyAppliedError"){
+                                        message = "이미 수강신청한 과목입니다.";
+                                    }else if(returnCode === "TimeError"){
+                                        message = "수강 신청 가능 시간이 지났습니다.";
+                                    }else if(returnCode === "AlreadyAppliedSubjectError"){
+                                        message = "다른 분반 신청했습니다..";
+                                    }else if(returnCode === "AlreadyAppliedError"){
+                                        message = "이미 수강신청한 과목입니다.";
+                                    }
+                                    alert(`${message}`);
+                                    })
+
+                                }}>신청</button>
                             </div>
                         </form>
                     </div>
