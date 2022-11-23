@@ -22,6 +22,8 @@ function AdminCourseList() {
   const [_professorName, setProfessorName] = useState("");
   const [_subjectName, setSubjectName] = useState("");
   const [_subjectNum, setSubjectNum] = useState("");
+  const [_limitNumber, setLimitNumber] = useState("");
+  const [_credit, setCredit] = useState("");
   
   const updateBtnClick = (e) => {
     setModal(!modal);
@@ -30,6 +32,9 @@ function AdminCourseList() {
     setProfessorName(e.target.parentNode.parentNode.childNodes[5].innerText);
     setSubjectName(e.target.parentNode.parentNode.childNodes[4].innerText);
     setSubjectNum(e.target.parentNode.parentNode.childNodes[3].innerText);  //선택한 과목의 학수번호
+    setLimitNumber(e.target.parentNode.parentNode.childNodes[6].innerText);
+    setCredit(e.target.parentNode.parentNode.childNodes[7].innerText);  //선택한 과목의 학수번호
+    
     
     // axios({
     //   method: 'GET',
@@ -45,6 +50,17 @@ function AdminCourseList() {
     // })
   }
 
+  const onRemove = id => {
+    if(window.confirm('삭제 하시겠습니까?')) {
+      setSearchCourseList(searchCourseList => 
+        searchCourseList.filter(searchCourseList => searchCourseList.courseNumber !== id))
+      axios({
+          method: 'DELETE',
+          url: `http://127.0.0.1:8000/deleteclass?courseNumber=${id}}`
+      }).then(response => console.log(response.data))
+    }
+  };
+
   //검색 조건에 맞는 api 요청 
   //검색 조건 미 입력시 전체 출력됨
   useEffect(() => {
@@ -57,13 +73,13 @@ function AdminCourseList() {
   return (
     <div className="CourseList">
         {
-          modal == true ? <Modal majorName={_majorName} grade={_grade} professorName={_professorName} subjectName={_subjectName} subjectNum={_subjectNum} /> : null
+          modal == true ? <Modal majorName={_majorName} grade={_grade} professorName={_professorName} subjectName={_subjectName} subjectNum={_subjectNum} credit={_credit} limitNumber={_limitNumber} /> : null
         }
         <div className='CourseTable'>
         <table>
             <thead>
                 <tr>
-                    <td><button>삭제</button></td>
+                    <td>삭제</td>
                     <td>개설 학과</td>
                     <td>학년</td>
                     <td>학수 번호</td>
@@ -79,7 +95,7 @@ function AdminCourseList() {
               {/* api로 받아온 리스트 만큼 표 출력함 */}
               {searchCourseList.map(searchCourseList => (
                 <tr>
-                  <td><input type='checkbox'></input></td>
+                  <td><button onClick={() => onRemove(searchCourseList.courseNumber)}>삭제</button></td>
                   <td>{searchCourseList.majorName}</td>
                   <td>{searchCourseList.grade}</td>
                   <td>{searchCourseList.courseNumber}</td>
