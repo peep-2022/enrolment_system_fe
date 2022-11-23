@@ -1,0 +1,17 @@
+.loginContainer{
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.id, .pw{
+    width: 90%;
+    height: 10%;
+}
+
+.loginBtn, .adminLoginBtn{
+    width: 95%;
+    height: 10%;
+    margin: 1px auto;
+}
