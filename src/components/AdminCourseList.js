@@ -32,8 +32,8 @@ function AdminCourseList() {
     setProfessorName(e.target.parentNode.parentNode.childNodes[5].innerText);
     setSubjectName(e.target.parentNode.parentNode.childNodes[4].innerText);
     setSubjectNum(e.target.parentNode.parentNode.childNodes[3].innerText);  //선택한 과목의 학수번호
-    setLimitNumber(e.target.parentNode.parentNode.childNodes[6].innerText);
-    setCredit(e.target.parentNode.parentNode.childNodes[7].innerText);  //선택한 과목의 학수번호
+    setLimitNumber(e.target.parentNode.parentNode.childNodes[7].innerText);
+    setCredit(e.target.parentNode.parentNode.childNodes[6].innerText);  //선택한 과목의 학수번호
     
     
     // axios({
@@ -56,7 +56,7 @@ function AdminCourseList() {
         searchCourseList.filter(searchCourseList => searchCourseList.courseNumber !== id))
       axios({
           method: 'DELETE',
-          url: `http://127.0.0.1:8000/deleteclass?courseNumber=${id}}`
+          url: `http://127.0.0.1:8000/adminDelete?courseNumber=${id}`
       }).then(response => console.log(response.data))
     }
   };

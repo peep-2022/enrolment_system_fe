@@ -60,7 +60,7 @@ const CourseEnroll = () => {
         if(subjectName === "") {
             subjectName = "None";
         }
-        if(courseNumber === "-") {
+        if(courseNumber === "--") {
             courseNumber="None";
         }
 
