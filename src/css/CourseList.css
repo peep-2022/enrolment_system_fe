@@ -6,3 +6,8 @@ table {
 th, td {
 border: 1px solid #444444;
 }
+.CourseTable{
+    width: 90%;
+    height: 500px;
+    overflow: scroll;
+}

@@ -8,11 +8,11 @@ function SearchCourseList() {
   const [searchCourseList, setSearchCourseList] = useState([]);
     
   // TODO: 요청변수 값 state?그런거로 바꾸기
-  const majorName = "";
-  const grade = "";
-  const professorName = "";
-  const subjectName = "";
-  const courseNumber = "";
+  const majorName = '대학 학과공통';
+  const grade = 0;
+  const professorName = 'None';
+  const subjectName = 'None';
+  const courseNumber = 'None';
 
   //검색 조건에 맞는 api 요청 
   //검색 조건 미 입력시 전체 출력됨

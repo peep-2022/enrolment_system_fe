@@ -1,0 +1,9 @@
+.modalContainer{
+    border: 2px solid black;
+    width: 50%;
+    position: absolute;
+    background-color: white;
+    padding: 20px;
+    margin: 20px;
+}
+
