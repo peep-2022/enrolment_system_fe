@@ -3,25 +3,41 @@ import React, { useState, useEffect } from 'react';
 
 import '../css/CourseList.css'
 
-function SearchCourseList() {
+function SearchCourseList(searchCourseList) {
 
-  const [searchCourseList, setSearchCourseList] = useState([]);
+  const tableList = () => {
+
+    var searchlist = searchCourseList['list']
     
-  // TODO: 요청변수 값 state?그런거로 바꾸기
-  const majorName = "";
-  const grade = "";
-  const professorName = "";
-  const subjectName = "";
-  const courseNumber = "";
+    const reList = [];
+    if(typeof(searchlist[0]) != 'undefined') {
+      for(let i = 0; i < searchlist.length; i++) {
+        reList.push(
+          <tr>
+          <td></td>
+          <td>{searchlist[i]['majorName']}</td>
+          <td>{searchlist[i]['grade']}</td>
+          <td>{searchlist[i]['courseNumber']}</td>
+          <td>{searchlist[i]['subjectName']}</td>
+          <td>{searchlist[i]['professorName']}</td>
+          <td>{searchlist[i]['credit']}</td>
+          <td>{searchlist[i]['limitNumber']}</td>
+          <td>{searchlist[i]['currentNumber']}</td>
+          <td><button onClick={requestEnrolmentAPI}>신청</button></td>
+        </tr>
+        );
+      } 
+    }
+    return reList;
+  }
 
-  //검색 조건에 맞는 api 요청 
-  //검색 조건 미 입력시 전체 출력됨
-  useEffect(() => {
-      axios({
-          method: 'GET',
-          url: `http://127.0.0.1:8000/search?majorName=${majorName}&grade=${grade}&professorName=${professorName}&subjectName=${subjectName}&courseNumber=${courseNumber}`
-      }).then(response => setSearchCourseList(response.data))
-  }, [])
+  function requestEnrolmentAPI(){
+    axios({
+      method: 'GET',
+      url: `http://127.0.0.1:8000/enrolment?studentNumber=${majorName}&grade=${grade}&professorName=${professorName}&subjectName=${subjectName}&courseNumber=${courseNumber}`
+    }).then((response) => {
+    })
+  }
 
   return (
     <div className="CourseList">
@@ -42,20 +58,7 @@ function SearchCourseList() {
             </thead>
             <tbody>
               {/* api로 받아온 리스트 만큼 표 출력함 */}
-              {searchCourseList.map(searchCourseList => (
-                <tr>
-                  <td></td>
-                  <td>{searchCourseList.majorName}</td>
-                  <td>{searchCourseList.grade}</td>
-                  <td>{searchCourseList.courseNumber}</td>
-                  <td>{searchCourseList.subjectName}</td>
-                  <td>{searchCourseList.professorName}</td>
-                  <td>{searchCourseList.credit}</td>
-                  <td>{searchCourseList.limitNumber}</td>
-                  <td>{searchCourseList.currentNumber}</td>
-                  <td><button>신청</button></td>
-                </tr>
-              ))}
+              {tableList()}
             </tbody>
         </table>
     </div>
