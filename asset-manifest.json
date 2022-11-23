@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/enrolment_system_fe/static/css/main.6570d767.css",
-    "main.js": "/enrolment_system_fe/static/js/main.4c7b500a.js",
+    "main.js": "/enrolment_system_fe/static/js/main.6e1a7bff.js",
     "static/media/CNUlogo.jpg": "/enrolment_system_fe/static/media/CNUlogo.416d133ead26e067b1ad.jpg",
     "index.html": "/enrolment_system_fe/index.html",
     "main.6570d767.css.map": "/enrolment_system_fe/static/css/main.6570d767.css.map",
-    "main.4c7b500a.js.map": "/enrolment_system_fe/static/js/main.4c7b500a.js.map"
+    "main.6e1a7bff.js.map": "/enrolment_system_fe/static/js/main.6e1a7bff.js.map"
   },
   "entrypoints": [
     "static/css/main.6570d767.css",
-    "static/js/main.4c7b500a.js"
+    "static/js/main.6e1a7bff.js"
   ]
 }
