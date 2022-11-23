@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {HashRouter, Routes, Route} from "react-router-dom";
 import "./App.css";
 
 import CourseEnroll from './pages/CourseEnrollPage';
@@ -9,7 +9,7 @@ import Admin from './pages/AdminPage';
 
 function App() {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <div className="App">
                 <Routes>
                     <Route path="/" element={<Login/>} />
@@ -18,7 +18,7 @@ function App() {
                     <Route path="/Admin" element={<Admin/>} />
                 </Routes>
             </div>
-        </BrowserRouter>
+        </HashRouter>
     );
 }
 
